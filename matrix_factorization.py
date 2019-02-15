@@ -4,7 +4,7 @@ import sqlite3
 from scipy.sparse.linalg import svds
 from sqlalchemy import create_engine
 import subprocess,psycopg2
-conn_info = subprocess.run(["heroku", "config:get", "DATABASE_URL", "-a", moviesrsfinder], stdout = subprocess.PIPE)
+conn_info = subprocess.run(["heroku", "config:get", "DATABASE_URL", "-a", "moviesrsfinder"], stdout = subprocess.PIPE)
 connuri = conn_info.stdout.decode('utf-8').strip()
 engine=create_engine(connuri)
 raw_engine = engine.raw_connection()
