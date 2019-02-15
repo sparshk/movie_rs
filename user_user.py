@@ -2,12 +2,16 @@ import pandas as pd
 import numpy as np
 import sqlite3
 from sqlalchemy import create_engine
-engine=create_engine("postgres://postgres:25736534@localhost:5432/postgres")
+import subprocess,psycopg2
+conn_info = subprocess.run(["heroku", "config:get", "DATABASE_URL", "-a", moviesrsfinder], stdout = subprocess.PIPE)
+connuri = conn_info.stdout.decode('utf-8').strip()
+engine=create_engine(connuri)
+raw_engine = engine.raw_connection()
 
 def calculateuser(x):
     db=sqlite3.connect('db.sqlite3')
-    movies = pd.read_sql_query("SELECT * FROM movies", engine)
-    ratings = pd.read_sql_query("SELECT * FROM rating", engine)
+    movies = pd.read_sql_query("SELECT * FROM movies", raw_engine)
+    ratings = pd.read_sql_query("SELECT * FROM rating", raw_engine)
             
     userRatings=ratings.pivot_table(index=['movie_id'], columns=['account_id'], values='rating')
     corrMatrix=userRatings.corr(method='pearson')
