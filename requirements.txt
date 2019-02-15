@@ -10,3 +10,4 @@ Scrapy==1.5.1
 scipy==1.0.0
 whitenoise==3.2
 django-heroku
+gunicorn==19.6.0
