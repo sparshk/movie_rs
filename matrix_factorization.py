@@ -3,11 +3,10 @@ import numpy as nm
 import sqlite3
 from scipy.sparse.linalg import svds
 from sqlalchemy import create_engine
-import subprocess,psycopg2
-conn_info = subprocess.run(["heroku", "config:get", "DATABASE_URL", "-a", "moviesrsfinder"], stdout = subprocess.PIPE)
-connuri = conn_info.stdout.decode('utf-8').strip()
-engine=create_engine(connuri)
-raw_engine = engine.raw_connection()
+import subprocess
+proc = subprocess.Popen('heroku config:get DATABASE_URL -a moviesrsfinder', stdout=subprocess.PIPE, shell=True)
+db_url = proc.stdout.read().decode('utf-8').strip()
+engine = create_engine(db_url)
 
 def recommend_movies(predictions_df, userID, movies_df, original_ratings_df, num_recommendations=5):
     user_row_number = userID - 1
@@ -28,8 +27,8 @@ def recommend_movies(predictions_df, userID, movies_df, original_ratings_df, num
 
 def calculate(x):
     db=sqlite3.connect('db.sqlite3')
-    movies_df = pd.read_sql_query("SELECT * FROM movies",raw_engine)
-    ratings_df = pd.read_sql_query("SELECT * FROM rating", raw_engine)
+    movies_df = pd.read_sql_query("SELECT * FROM movies",con=engine)
+    ratings_df = pd.read_sql_query("SELECT * FROM rating", con=engine)
     R_df = ratings_df.pivot(index = 'account_id', columns ='movie_id', values = 'rating').fillna(0)
     R=R_df.values
     user_ratings_mean=nm.mean(R,axis=1)
