@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+{% block content %}
+    <div class="card text-center">
+  <div class="card-header">
+     <img src="{{movie.img_url}}">
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">{{movie.title}}</h5>
+    <p class="card-text">{{movie.description}}</p>
+    <p class="card-text">IMDB Rating : {{movie.users_rating}}</p>
+    <p class="card-text">Movie ID : {{movie.id}}</p>
+    <p class="card-text">Genre : {{movie.genre}}</p>
+    <form class="site-form" action="{% url 'movie:explore' movie.id %}" method="post" autocomplete="on">
+            {% csrf_token %}
+            {{form.as_p}}
+    <input style="font-color:#000000;color: #008000;" type="Submit" value="Save">
+</form>
+</div>
+   
+</div>
+
+
+
+		  
+{% endblock %}
+
+

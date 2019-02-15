@@ -1,0 +1,12 @@
+psycopg2-binary
+dj_database_url
+SQLAlchemy==1.2.1
+requests==2.18.4
+pandas==0.22.0
+pymongo==3.7.2
+Django==2.0.6
+numpy==1.14.0
+Scrapy==1.5.1
+scipy==1.0.0
+whitenoise==3.2
+django-heroku

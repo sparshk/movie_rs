@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+{% block content %}
+  
+  <div class ="container">
+    <center>
+<div class="row">
+  <div class="col-sm-5 col-lg-4">
+    <div class="card-deck">
+      <div class="card-body">
+        <h5 class="card-title">Item-Item Collaborative Filtering</h5>
+      {% for movie in moviesitem %}
+      <p class="card-text" href="{{movie.imdb_url}}">{{movie.title}}<a href="{{movie.imdb_url}}" class="btn btn-dark">Imdb</a></p>
+      
+      {% endfor %}
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-5 col-lg-4">
+    <div class="card-deck">
+      <div class="card-body">
+        <h5 class="card-title">User-User Collaborative Filtering</h5>
+      {% for movie in moviesuser %}
+      <p class="card-text" href="{{movie.imdb_url}}">{{movie.title}}<a href="{{movie.imdb_url}}" class="btn btn-dark">Imdb</a></p>
+      
+      {% endfor %}
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-5 col-lg-4">
+    <div class="card-deck">
+      <div class="card-body">
+       <h5 class="card-title">Matrix Factorization</h5>
+      {% for movie in moviesfac %}
+      <p class="card-text" href="{{movie.imdb_url}}">{{movie.title}}<a href="{{movie.imdb_url}}" class="btn btn-dark">Imdb</a></p>
+
+      {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+</center>
+</div>
+
+
+		  
+{% endblock %}

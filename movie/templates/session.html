@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+{% block content %}
+      <center><h4>Rate(1-5) atleast 15 movies and we'll recommend you 15 more movies!</h4></center>
+      <center>
+          <form class="site-form" action="{% url 'movie:recommend'%}" method="post">
+            {% csrf_token %}
+            <input style="font-color:#000000;color: #008000" type="Submit" value="Recommend">
+      </center>
+      <br></br>
+	  <div class ="container">
+                <div class="row">
+            {% for movie in movies %}
+            
+            
+            <div class="col-md-4 col-lg-3">
+            <div class="card-deck">
+             <div class="card mb-4">
+                <div class="card text-center" style="width:20rem;">
+                <img class="card-img-top" src="{{movie.img_url}}" alt="Card image cap">
+                <div class="card-body">
+                <h5 class="card-title">{{movie.title}}</h5>
+                <a href="{% url 'movie:explore' movie.id %}" class="btn btn-dark">Explore</a>
+            </div>
+        </div>
+            </div>
+        </div>
+    </div>
+   
+   
+       {% endfor %}
+        </div>
+</div>
+
+
+		  
+{% endblock %}
